@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del aspirante</title>
+</head>
+<body>
+
+    <h1>Sistema de Admisiones</h1>
+    <h2>Información del aspirante</h2>
+
+    <p><strong>Cédula:</strong> {{ aspirante.cedula }}</p>
+    <p><strong>Nombres:</strong> {{ aspirante.nombres }}</p>
+    <p><strong>Apellidos:</strong> {{ aspirante.apellidos }}</p>
+    <p><strong>Correo:</strong> {{ aspirante.correo }}</p>
+    <p><strong>Teléfono:</strong> {{ aspirante.telefono }}</p>
+    <p><strong>Fecha de nacimiento:</strong> {{ aspirante.fecha_nacimiento }}</p>
+    <p><strong>Dirección:</strong> {{ aspirante.direccion }}</p>
+    <p><strong>Fecha de registro:</strong> {{ aspirante.fecha_registro }}</p>
+    <p><strong>Estado:</strong>
+        {% if aspirante.activo %}
+            Activo
+        {% else %}
+            Inactivo
+        {% endif %}
+    </p>
+
+    <h3>Carreras de interés</h3>
+
+    {% for carrera in aspirante.carreras_interes.all %}
+        <p>{{ carrera.nombre }}</p>
+    {% empty %}
+        <p>No tiene carreras de interés registradas.</p>
+    {% endfor %}
+
+    <br>
+
+    <a href="{% url 'listar_aspirantes' %}">Volver al listado</a>
+
+</body>
+</html>

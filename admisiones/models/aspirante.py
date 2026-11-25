@@ -1,9 +1,7 @@
-
 from django.db import models
 
 
 class Aspirante(models.Model):
-
     cedula = models.CharField(max_length=10, unique=True)
     nombres = models.CharField(max_length=100)
     apellidos = models.CharField(max_length=100)
@@ -14,6 +12,12 @@ class Aspirante(models.Model):
 
     fecha_registro = models.DateTimeField(auto_now_add=True)
     activo = models.BooleanField(default=True)
+
+    carreras_interes = models.ManyToManyField(
+        'admisiones.Carrera',
+        related_name='aspirantes_interesados',
+        blank=True
+    )
 
     def __str__(self):
         return f"{self.nombres} {self.apellidos}"

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de aspirantes</title>
+</head>
+<body>
+
+    <h1>Sistema de Admisiones</h1>
+    <h2>Listado de aspirantes</h2>
+
+    <a href="{% url 'crear_aspirante' %}">
+        Registrar nuevo aspirante
+    </a>
+
+    <hr>
+
+    {% if aspirantes %}
+        <table border="1">
+            <tr>
+                <th>Cédula</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+            </tr>
+
+            {% for aspirante in aspirantes %}
+                <tr>
+                    <td>{{ aspirante.cedula }}</td>
+                    <td>{{ aspirante.nombres }}</td>
+                    <td>{{ aspirante.apellidos }}</td>
+                    <td>{{ aspirante.correo }}</td>
+                    <td>
+                        <a href="{% url 'detalle_aspirante' aspirante.pk %}">
+                            Ver detalle
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No existen aspirantes registrados.</p>
+    {% endif %}
+
+</body>
+</html>

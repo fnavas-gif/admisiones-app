@@ -1,0 +1,1 @@
+from .aspirante_urls import urlpatterns
