@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Eliminar carrera</title>
+</head>
+<body>
+
+    <h1>Sistema de Admisiones</h1>
+    <h2>Eliminar carrera</h2>
+
+    {% if error %}
+        <p style="color: red;">
+            {{ error }}
+        </p>
+    {% else %}
+        <p>
+            ¿Estás seguro de que deseas eliminar la siguiente carrera?
+        </p>
+
+        <p>
+            <strong>Nombre:</strong> {{ carrera.nombre }}
+        </p>
+
+        <p>
+            <strong>Código:</strong> {{ carrera.codigo }}
+        </p>
+
+        {% if perms.admisiones.delete_carrera %}
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit">Confirmar eliminación</button>
+            </form>
+        {% else %}
+            <p>No tienes permisos para eliminar esta carrera.</p>
+        {% endif %}
+    {% endif %}
+
+    <br>
+
+    <a href="{% url 'listar_carreras' %}">
+        Volver al listado
+    </a>
+
+</body>
+</html>

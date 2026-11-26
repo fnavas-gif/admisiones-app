@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de carreras</title>
+</head>
+<body>
+
+    <h1>Sistema de Admisiones</h1>
+    <h2>Listado de carreras</h2>
+
+    {% if perms.admisiones.add_carrera %}
+        <a href="{% url 'crear_carrera' %}">Registrar nueva carrera</a>
+    {% endif %}
+
+    <br><br>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Código</th>
+                <th>Duración</th>
+                <th>Modalidad</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for carrera in carreras %}
+            <tr>
+                <td>{{ carrera.nombre }}</td>
+                <td>{{ carrera.codigo }}</td>
+                <td>{{ carrera.duracion_semestres }} semestres</td>
+                <td>{{ carrera.get_modalidad_display }}</td>
+                <td>
+                    {% if carrera.activa %}
+                        Activa
+                    {% else %}
+                        Inactiva
+                    {% endif %}
+                </td>
+                <td>
+                    {% if perms.admisiones.change_carrera %}
+                        <a href="{% url 'editar_carrera' carrera.pk %}">Editar</a>
+                    {% endif %}
+
+                    {% if perms.admisiones.delete_carrera %}
+                        {% if perms.admisiones.change_carrera %}|{% endif %}
+                        <a href="{% url 'eliminar_carrera' carrera.pk %}">Eliminar</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No existen carreras registradas.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+
+    <a href="{% url 'listar_aspirantes' %}">Volver a aspirantes</a>
+
+</body>
+</html>
