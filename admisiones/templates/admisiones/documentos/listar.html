@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de documentos</title>
+</head>
+<body>
+
+    <h1>Sistema de Admisiones</h1>
+    <h2>Listado de documentos</h2>
+
+    {% if perms.admisiones.add_documento %}
+        <a href="{% url 'crear_documento' %}">Registrar documento</a>
+    {% endif %}
+
+    <br><br>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Solicitud</th>
+                <th>Aspirante</th>
+                <th>Tipo de documento</th>
+                <th>Estado</th>
+                <th>Fecha de entrega</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for documento in documentos %}
+            <tr>
+                <td>{{ documento.solicitud.id }}</td>
+                <td>{{ documento.solicitud.aspirante }}</td>
+                <td>{{ documento.get_tipo_display }}</td>
+                <td>{{ documento.get_estado_display }}</td>
+                <td>
+                    {{ documento.fecha_entrega|date:"d/m/Y"|default:"No entregado" }}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No existen documentos registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <a href="{% url 'listar_aspirantes' %}">Volver a aspirantes</a>
+
+</body>
+</html>
