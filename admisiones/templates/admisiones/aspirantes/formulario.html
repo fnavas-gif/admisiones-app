@@ -1,20 +1,29 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Registrar aspirante</title>
+    <title>Formulario de aspirantes</title>
 </head>
 <body>
 
     <h1>Sistema de Admisiones</h1>
-    <h2>Registro de aspirantes</h2>
+
+    {% if es_edicion %}
+        <h2>Editar aspirante</h2>
+    {% else %}
+        <h2>Registrar aspirante</h2>
+    {% endif %}
 
     <form method="POST">
         {% csrf_token %}
-
         {{ formulario.as_p }}
 
-        <button type="submit">Guardar aspirante</button>
+        {% if es_edicion %}
+            <button type="submit">Actualizar aspirante</button>
+        {% else %}
+            <button type="submit">Guardar aspirante</button>
+        {% endif %}
     </form>
 
     <br>

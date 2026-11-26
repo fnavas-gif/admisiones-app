@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de solicitudes</title>
+</head>
+<body>
+
+    <h1>Sistema de Admisiones</h1>
+    <h2>Listado de solicitudes</h2>
+
+    {% if perms.admisiones.add_solicitud %}
+        <a href="{% url 'crear_solicitud' %}">Registrar nueva solicitud</a>
+    {% endif %}
+
+    <br><br>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Aspirante</th>
+                <th>Carrera</th>
+                <th>Fecha de solicitud</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for solicitud in solicitudes %}
+            <tr>
+                <td>{{ solicitud.id }}</td>
+                <td>{{ solicitud.aspirante }}</td>
+                <td>{{ solicitud.carrera }}</td>
+                <td>{{ solicitud.fecha_solicitud|date:"d/m/Y" }}</td>
+                <td>{{ solicitud.get_estado_display }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No existen solicitudes registradas.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+
+    <a href="{% url 'listar_aspirantes' %}">Volver a aspirantes</a>
+
+</body>
+</html>
