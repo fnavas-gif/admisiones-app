@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,7 +18,9 @@
     <p><strong>Fecha de nacimiento:</strong> {{ aspirante.fecha_nacimiento }}</p>
     <p><strong>Dirección:</strong> {{ aspirante.direccion }}</p>
     <p><strong>Fecha de registro:</strong> {{ aspirante.fecha_registro }}</p>
-    <p><strong>Estado:</strong>
+
+    <p>
+        <strong>Estado:</strong>
         {% if aspirante.activo %}
             Activo
         {% else %}
@@ -33,9 +36,27 @@
         <p>No tiene carreras de interés registradas.</p>
     {% endfor %}
 
-    <br>
+    <hr>
 
-    <a href="{% url 'listar_aspirantes' %}">Volver al listado</a>
+    <h3>Acciones</h3>
+
+    {% if perms.admisiones.change_aspirante %}
+        <a href="{% url 'editar_aspirante' aspirante.pk %}">
+            Editar aspirante
+        </a>
+        <br><br>
+    {% endif %}
+
+    {% if perms.admisiones.delete_aspirante %}
+        <a href="{% url 'eliminar_aspirante' aspirante.pk %}">
+            Eliminar aspirante
+        </a>
+        <br><br>
+    {% endif %}
+
+    <a href="{% url 'listar_aspirantes' %}">
+        Volver al listado
+    </a>
 
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,35 +10,50 @@
     <h1>Sistema de Admisiones</h1>
     <h2>Listado de aspirantes</h2>
 
-    <a href="{% url 'crear_aspirante' %}">
-        Registrar nuevo aspirante
-    </a>
+    <p>Bienvenido, {{ request.user.username }}</p>
+
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Cerrar sesión</button>
+    </form>
+
+    <br>
+
+    {% if perms.admisiones.add_aspirante %}
+        <a href="{% url 'crear_aspirante' %}">
+            Registrar nuevo aspirante
+        </a>
+    {% endif %}
 
     <hr>
 
     {% if aspirantes %}
         <table border="1">
-            <tr>
-                <th>Cédula</th>
-                <th>Nombres</th>
-                <th>Apellidos</th>
-                <th>Correo</th>
-                <th>Acciones</th>
-            </tr>
-
-            {% for aspirante in aspirantes %}
+            <thead>
                 <tr>
-                    <td>{{ aspirante.cedula }}</td>
-                    <td>{{ aspirante.nombres }}</td>
-                    <td>{{ aspirante.apellidos }}</td>
-                    <td>{{ aspirante.correo }}</td>
-                    <td>
-                        <a href="{% url 'detalle_aspirante' aspirante.pk %}">
-                            Ver detalle
-                        </a>
-                    </td>
+                    <th>Cédula</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Correo</th>
+                    <th>Acciones</th>
                 </tr>
-            {% endfor %}
+            </thead>
+
+            <tbody>
+                {% for aspirante in aspirantes %}
+                    <tr>
+                        <td>{{ aspirante.cedula }}</td>
+                        <td>{{ aspirante.nombres }}</td>
+                        <td>{{ aspirante.apellidos }}</td>
+                        <td>{{ aspirante.correo }}</td>
+                        <td>
+                            <a href="{% url 'detalle_aspirante' aspirante.pk %}">
+                                Ver detalle
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
     {% else %}
         <p>No existen aspirantes registrados.</p>

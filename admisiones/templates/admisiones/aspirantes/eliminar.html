@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Eliminar aspirante</title>
+</head>
+<body>
+
+    <h1>Sistema de Admisiones</h1>
+    <h2>Eliminar aspirante</h2>
+
+    <p>
+        ¿Estás seguro de que deseas eliminar al siguiente aspirante?
+    </p>
+
+    <p>
+        <strong>Nombre:</strong>
+        {{ aspirante.nombres }} {{ aspirante.apellidos }}
+    </p>
+
+    <p>
+        <strong>Cédula:</strong>
+        {{ aspirante.cedula }}
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Confirmar eliminación</button>
+    </form>
+
+    <br>
+
+    <a href="{% url 'detalle_aspirante' aspirante.pk %}">
+        Cancelar
+    </a>
+
+</body>
+</html>
