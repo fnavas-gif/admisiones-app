@@ -28,7 +28,7 @@ class AspiranteForm(forms.ModelForm):
         }
 
         labels = {
-            'cedula': 'Número de cédula',
+            'cedula': 'Cédula',
             'nombres': 'Nombres',
             'apellidos': 'Apellidos',
             'correo': 'Correo electrónico',
